@@ -1,0 +1,165 @@
+extends base
+
+block content 
+  .modalBackdrop
+
+  a.allEntriesLink.hidden(href=`/customers/${customer.id}`) All Entries
+  //- Rendering current customer's data
+  .customerDetails
+    .container-fluid
+      - const customerName = `${customer.name}`.split(' ').map((word) => word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
+      - const firmName = `${customer.firmName}`.split(' ').map((word) => word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
+      - const customerArea = `${customer.area}`[0].toUpperCase() + `${customer.area}`.slice(1)
+
+    .row
+      .col-lg-12.col-md-12.col-sm-12
+        h3 Name:
+          span.text-nowrap #{customerName}
+    .row
+      .col-lg-12.col-md-12.col-sm-12
+        h3 Firm Name:
+          span.text-nowrap #{firmName}
+    .row
+      .col-lg-12.col-md-12.col-sm-12
+        h3 Area:
+          span.text-nowrap #{customerArea}
+    .row
+      .col-lg-12.col-md-12.col-sm-12
+        h3.displayPhoneNumber Phone Number:
+          span.text-nowrap #{customer.phoneNumber}
+
+  if(totalBalance > 0)
+    .totalBalance_section
+      h1.totalBalance_section-heading Total Debit Balance:  
+        span.totalBalance_section-amount.balanceInDebit= `₹${totalBalance}`
+  else if(totalBalance < 0)
+    .totalBalance_section
+      h1.totalBalance_section-heading Total Credit Balance:  
+        span.totalBalance_section-amount.balanceInCredit= `₹${Math.abs(totalBalance)}`
+  else 
+    .totalBalance_section
+      h1.totalBalance_section-heading Total Balance:
+        span.totalBalance_section-amount.balanceInCredit= `₹0`
+
+  //- Table showing all existing entries
+  .allEntryBtn
+    button.allEntryAddBtn Add 
+      i(class="fa-solid fa-plus fontAwesome-icon")
+    button.allEntrySearchBtn Search 
+      i(class="fa-solid fa-magnifying-glass fontAwesome-icon")
+
+  table.entryTable.table.table-striped
+    thead.entryTable-head
+      tr 
+        th(scope="col") # 
+        th(scope="col") DATE 
+        th(scope="col") PARTICULARS
+        th(scope="col") DEBIT AMOUNT
+        th(scope="col") CREDIT AMOUNT
+        th(scope="col") 
+
+    tbody.entryTable-body 
+      each entry, index in customer.entries
+        tr(data-id = `${entry.id}` class="entryTable_tr")  
+          th(scope="row")= index + 1
+
+          - const entryDate =  new Date(entry.date).toLocaleString('es-CL', { day: 'numeric', month: 'numeric', year: 'numeric' })
+          td= entryDate 
+
+          - const particulars =  `${entry.particulars}`.split(' ').map((word) => word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase()).join(' ') 
+          td= particulars
+
+          td= entry.debitBalance
+          td= entry.creditBalance
+          td.dropdown_td 
+            .dropdown 
+              button.edit-btn.dropdown-toggle.dropdown-toggle-no-caret(type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                i(class="fa-solid fa-pen-to-square")
+
+              .dropdown-menu.dropdown-menu-right(aria-labelledby="dropdownMenuButton")
+                a.updateEntryBtn.dropdownBtn(href="javascript:void(0)" class="dropdown-item updateEntryBtn") Update 
+                a.showPages.dropdownBtn(href="javascript:void(0)" class="dropdown-item showPagesBtn") Show Documents 
+                a.addPages.dropdownBtn(href="javascript:void(0)" class="dropdown-item addPagesBtn") Add Documents 
+                a.deleteEntryBtn.dropdownBtn(href="javascript:void(0)" class="dropdown-item deleteEntryBtn") Delete 
+                a.cancelActionBtn.dropdownBtn(href="javascript:void(0)" class="dropdown-item cancelBtn") Cancel 
+
+  //- If user wants to update the customer's entry
+  .updateExistingEntryModal
+    form.updateExistingEntryForm.modalForm(autocomplete='off')
+      i(class="fa-solid fa-circle-xmark closeModalBtn")
+      h2.modalFormHeading Update selected Entry
+      .form-group.modalFormGroup
+        label.modalFormLabel(for='updateExistingEntry-particulars') Particulars
+        input#updateExistingEntry-particulars.form-control.modalFormInput( type='text' placeholder='Enter particulars')
+      .form-group.modalFormGroup
+        label.modalFormLabel(for='updateExistingEntry-date') Date
+        input#updateExistingEntry-date.form-control.modalFormInput( type='date' placeholder='Enter date' )
+      .form-group.modalFormGroup
+        label.modalFormLabel(for='updateExistingEntry-debitAmount') Debit Amount
+        input#updateExistingEntry-debitAmount.form-control.modalFormInput( type='text' placeholder='Enter Debit Amount')
+      .form-group.modalFormGroup
+        label.modalFormLabel(for='updateExistingEntry-creditAmount') Credit Amount
+        input#updateExistingEntry-creditAmount.form-control.modalFormInput( type='text' placeholder='Enter Credit Amount')
+      .form-group.modalFormGroup
+        label.modalFormLabel(for='updateDocuments') Documents
+        input#updateDocuments.form-control.modalFormInput( type='file' placeholder='update Docs' capture="camera, gallery" accept="image/*" multiple name="photo")
+
+      button.modalFormSubmitBtn(type='submit') Update Entry
+
+  //- If user wants to add an entry
+  form.addEntryForm.modalForm(autocomplete='off' enctype="multipart/form-data")
+    i(class="fa-solid fa-circle-xmark closeModalBtn")
+    h2.modalFormHeading Create an Entry
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='addEntry-particulars') Particulars
+      input#addEntry-particulars.form-control.modalFormInput( type='text' placeholder='Enter particulars')
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='addEntry-date') Date
+        span.formRequiredAsterik *
+      input#addEntry-date.form-control.modalFormInput( type='date' placeholder='Enter date' required )
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='addEntry-debitAmount') Debit Amount
+      input#addEntry-debitAmount.form-control.modalFormInput( type='text' placeholder='Enter Debit Amount')
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='addEntry-creditAmount') Credit Amount
+      input#addEntry-creditAmount.form-control.modalFormInput( type='text' placeholder='Enter Credit Amount')
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='addEntry-Image') Add any Image
+      input#addEntry-Image.form-control.modalFormInput( type='file' placeholder='Add any Image' capture="camera, gallery" accept="image/*" multiple name="photo")
+
+    button.modalFormSubmitBtn(type='submit') Add
+
+  //- If user wants to search through all entries
+  form.entrySearchForm.modalForm(autocomplete='off')
+    h2.modalFormHeading Search through Entries
+    i(class="fa-solid fa-circle-xmark closeModalBtn")
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='searchEntry-particulars') Particulars
+      input#searchEntry-particulars.form-control.modalFormInput( type='text' placeholder='Enter particulars')
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='searchEntry-date') Date
+      input#searchEntry-date.form-control.modalFormInput( type='date' placeholder='Enter date' )
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='searchEntry-debitAmount') Debit Amount
+      input#searchEntry-debitAmount.form-control.modalFormInput( type='text' placeholder='Enter Debit Amount')
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='searchEntry-creditAmount') Credit Amount
+      input#searchEntry-creditAmount.form-control.modalFormInput( type='text' placeholder='Enter Credit Amount')
+
+    button.modalFormSubmitBtn(type='submit') Search
+
+  .showDocuments
+    button.closeDocModalBtn.closeButton Close Documents
+    .owl-carousel.owl-theme
+
+
+  //- If user wants to add documents
+  form.addDocs.modalForm(autocomplete='off')
+    i(class="fa-solid fa-circle-xmark closeModalBtn")
+    h2.modalFormHeading Add Documents
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='addDocuments') Add any Image
+        span.formRequiredAsterik *
+      input#addDocuments.form-control.modalFormInput( type='file' placeholder='Add any Image' capture="camera, gallery" accept="image/*" multiple name="photo" required)
+
+    button.modalFormSubmitBtn(type='submit') Add 

@@ -1,0 +1,106 @@
+extends base
+
+block content 
+  //- If user wants to add a customer
+  .modalBackdrop
+
+  form.customerAddForm.modalForm(autocomplete='off')
+    h2.modalFormHeading Add a Customer
+    i(class="fa-solid fa-circle-xmark closeModalBtn")
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='customerAdd-name') Name
+        span.formRequiredAsterik *
+      input#customerAdd-name.form-control.modalFormInput( type='text' placeholder='Enter Name' required)
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='customerAdd-area') Area
+        span.formRequiredAsterik *
+      input#customerAdd-area.form-control.modalFormInput( type='text' placeholder='Enter Area' required)
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='customerAdd-phoneNumber') Phone Number
+      input#customerAdd-phoneNumber.form-control.modalFormInput( type='text' placeholder='Enter Phone Number')
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='customerAdd-firmName') Firm Name
+        span.formRequiredAsterik *
+      input#customerAdd-firmName.form-control.modalFormInput( type='text' placeholder='Enter Firm Name' required)
+
+    button.modalFormSubmitBtn(type='submit') Add
+
+  //- If user wants to search through customers
+  button#searchCustomerBtn Search 
+    i(class="fa-solid fa-magnifying-glass fontAwesome-icon")
+
+  form.customerSearchForm.modalForm(autocomplete='off')
+    h2.modalFormHeading Search a customer
+    i(class="fa-solid fa-circle-xmark closeModalBtn")
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='customerSearch-name') Name
+      input#customerSearch-name.form-control.modalFormInput( type='text' placeholder='Enter Name')
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='customerSearch-area') Area
+      input#customerSearch-area.form-control.modalFormInput( type='text' placeholder='Enter Area')
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='customerSearch-phoneNumber') Phone Number
+      input#customerSearch-phoneNumber.form-control.modalFormInput( type='text' placeholder='Enter Phone Number')
+    .form-group.modalFormGroup
+      label.modalFormLabel(for='customerSearch-firmName') Firm Name
+      input#customerSearch-firmName.form-control.modalFormInput( type='text' placeholder='Enter Firm Name')
+
+    button.modalFormSubmitBtn(type='submit') Search
+
+  form.updateCustomerForm.modalForm(autocomplete='off')
+    h2.modalFormHeading Update the Customer
+    i(class="fa-solid fa-circle-xmark closeModalBtn")
+    .form-group
+      label.modalFormLabel(for='updateCustomer-name') Name
+      input#updateCustomer-name.form-control.modalFormInput( type='text' placeholder='Enter Name')
+    .form-group
+      label.modalFormLabel(for='updateCustomer-area') Area
+      input#updateCustomer-area.form-control.modalFormInput( type='text' placeholder='Enter Area' )
+    .form-group
+      label.modalFormLabel(for='updateCustomer-firmName') Firm Name
+      input#updateCustomer-firmName.form-control.modalFormInput( type='text' placeholder='Enter Firm name' )
+    .form-group
+      label.modalFormLabel(for='updateCustomer-phoneNumber') Phone Number
+      input#updateCustomer-phoneNumber.form-control.modalFormInput( type='text' placeholder='Enter Phonenumber')
+
+    button.modalFormSubmitBtn(type='submit') Update
+
+
+  //- confirming from user to delete the customer (will only show once users asks for deleting customer)
+  .deleteCustomer-modal.hidden 
+    h3 Delete this Customer? This action can't be undone!
+    i(class="fa-solid fa-circle-xmark deleteCustomer-modal_closeBtn")
+    button.deleteCustomerModal_deleteBtn Delete Permanently
+
+
+  //- Rendering all customers data
+  table.customerTable.table.table-striped
+    thead.customerTable-head
+      tr 
+        th(scope="col") # 
+        th(scope="col") NAME 
+        th(scope="col") AREA 
+        th(scope="col") PHONE NUMBER
+        th(scope="col") FIRM NAME
+        th(scope="col")
+
+    tbody.customerTable-body
+      each customer,index in customers 
+        tr(data-id=customer.id class="customerTable_tr")
+          th(scope="row")= index + 1
+
+          td= `${customer.name}`.split(' ').map((word) => word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
+
+          td= `${customer.area}`[0].toUpperCase() + `${customer.area}`.slice(1)
+
+          td= customer.phoneNumber
+
+          td= `${customer.firmName}`.split(' ').map((word) => word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
+          td.dropdown_td 
+            .dropdown 
+              button.edit-btn.dropdown-toggle.dropdown-toggle-no-caret(type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+                i(class="fa-solid fa-pen-to-square")
+
+              .dropdown-menu.dropdown-menu-right(aria-labelledby="dropdownMenuButton")
+                a.updateCustomerBtn.dropdownBtn(href="javascript:void(0)" class="dropdown-item") Update 
+                a.deleteCustomerBtn.dropdownBtn(href="javascript:void(0)" class="dropdown-item") Delete 

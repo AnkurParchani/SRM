@@ -1,0 +1,33 @@
+extends base
+
+block content 
+    .modalBackdrop
+
+    form.customerAddForm.modalForm(autocomplete='off')
+        h2.modalFormHeading Add a Customer
+        i(class="fa-solid fa-circle-xmark closeModalBtn")
+        .form-group.modalFormGroup
+            label.modalFormLabel(for='customerAdd-name') Name
+                span.formRequiredAsterik *
+            input#customerAdd-name.form-control.modalFormInput( type='text' placeholder='Enter Name' required)
+        .form-group.modalFormGroup
+            label.modalFormLabel(for='customerAdd-area') Area
+                span.formRequiredAsterik *
+            input#customerAdd-area.form-control.modalFormInput( type='text' placeholder='Enter Area' required)
+        .form-group.modalFormGroup
+            label.modalFormLabel(for='customerAdd-phoneNumber') Phone Number
+            input#customerAdd-phoneNumber.form-control.modalFormInput( type='text' placeholder='Enter Phone Number')
+        .form-group.modalFormGroup
+            label.modalFormLabel(for='customerAdd-firmName') Firm Name
+                span.formRequiredAsterik *
+            input#customerAdd-firmName.form-control.modalFormInput( type='text' placeholder='Enter Firm Name' required)
+
+        button.modalFormSubmitBtn(type='submit') Add  
+
+    .noCustomersPage
+        .container 
+            .row 
+                .col-lg-12.col-md-12.col-sm-12.errorPageContainer 
+                    h1 You currently have no Customers. If you wish to add Customers, 
+                        a(href="javascript:void(0)" class="noCustomersContainer_addCustomer" ) click here
+

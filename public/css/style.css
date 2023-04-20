@@ -1,0 +1,658 @@
+@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap");
+
+body {
+  background-color: #a0937d;
+  color: black;
+  font-family: "Inter";
+}
+
+/* GLOBAL ELEMENTS */
+::selection {
+  background-color: darkblue;
+  color: white;
+}
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+.formRequiredAsterik {
+  color: red;
+}
+
+/* Form */
+.modalFormHeading {
+  text-align: left;
+}
+.modalForm {
+  width: 450px;
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -30px;
+  z-index: 4;
+  padding: 30px 20px;
+  background-color: #e7d4b5;
+  border-radius: 7px;
+  animation: modalAnimation 0.5s ease-out forwards;
+}
+.modalFormLabel {
+  margin-top: 10px;
+  margin-left: 6px;
+}
+.modalFormInput {
+  margin-top: 5px;
+  padding: 8px 6px;
+}
+.modalFormInput:focus {
+  border-color: #a0937d;
+  box-shadow: none;
+}
+.modalFormSubmitBtn {
+  background-color: green;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  font-size: 17px;
+  margin-right: 10px;
+  padding: 8px 30px;
+  margin-top: 20px;
+  float: right;
+}
+.modalFormSubmitBtn:hover {
+  background-color: white;
+  color: black;
+  transition: all 0.3s;
+}
+.modalFormSubmitBtn:active {
+  background: white !important;
+  outline: none;
+  color: black !important;
+  box-shadow: none !important;
+}
+.modalBackdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(7px);
+}
+.closeModalBtn {
+  position: absolute;
+  left: 88%;
+  font-size: 28px;
+  top: 7%;
+  cursor: pointer;
+  color: red;
+}
+.closeModalBtn:hover {
+  color: darkred;
+  transition: all 0.3s;
+}
+@keyframes modalAnimation {
+  0% {
+    transform: translateX(-50%) translateY(-65%);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(-52%);
+    opacity: 1;
+  }
+}
+/* For dropdown btn */
+.dropdownBtn:active {
+  background: white !important;
+  outline: none;
+  color: black !important;
+  box-shadow: none !important;
+}
+/* For showing success and failed errors */
+.alert {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 400;
+  width: 400px;
+  text-align: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 1.2rem 0rem;
+  -webkit-box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.25);
+  animation: slideToDown 0.3s ease-out forwards;
+  z-index: 10;
+}
+.alert--success {
+  background-color: #20bf6b;
+}
+.alert--error {
+  background-color: #eb4d4b;
+}
+@keyframes slideToDown {
+  0% {
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(-50%) translateY(0%);
+    opacity: 1;
+  }
+}
+/* Navigation bar */
+.navbar {
+  padding: 5px 40px;
+  background-color: #e3cdc1;
+  position: sticky;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  left: 0;
+}
+.nav-link {
+  color: black;
+}
+.nav-link:hover {
+  color: white;
+}
+.navbar-brand {
+  font-family: "Kalam";
+  font-size: 30px;
+}
+#addCustomerLink {
+  background-color: #e3cdc1;
+  border: none;
+}
+#logoutBtn {
+  background-color: #e3cdc1;
+  border: none;
+}
+/* Font awesome */
+.fontAwesome-icon {
+  margin-left: 7px;
+}
+
+/* PAGES */
+/* PAGE 1) Login page */
+.loginBox {
+  padding: 50px;
+  width: 350px;
+  background-color: #f6e6cb;
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.login_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_form__group {
+  position: relative;
+  padding: 20px 0 0;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 380px;
+  margin-top: 20px;
+}
+
+.login_form__field {
+  font-family: inherit;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid black;
+  outline: 0;
+  font-size: 17px;
+  color: black;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.login_form__field::placeholder {
+  color: transparent;
+}
+
+.login_form__field:placeholder-shown ~ .login_form__label {
+  font-size: 17px;
+  cursor: text;
+  top: 20px;
+}
+
+.login_form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 17px;
+  color: black;
+  pointer-events: none;
+}
+
+.login_form__field:focus {
+  padding-bottom: 6px;
+  font-weight: 500;
+  border-width: 3px;
+  border-image: linear-gradient(to right, black, #a0937d);
+  border-image-slice: 1;
+}
+
+.login_form__field:focus ~ .login_form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 17px;
+  color: black;
+  font-weight: 700;
+}
+
+/* reset input */
+.login_form__field:required,
+.login_form__field:invalid {
+  box-shadow: none;
+}
+
+/* Form .login_form__btn button */
+.login_form__btn button {
+  background: #a0937d;
+  border: none;
+  --color: white;
+  font-family: inherit;
+  display: inline-block;
+  width: 8em;
+  height: 2.6em;
+  line-height: 2.5em;
+  margin: 50px 20px 20px 0px;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s;
+  z-index: 1;
+  font-size: 17px;
+  border-radius: 6px;
+  font-weight: 500;
+  color: var(--color);
+}
+
+.login_form__btn button:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: #ffffff;
+  height: 150px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+.login_form__btn button:hover {
+  color: #252525;
+}
+
+.login_form__btn button:before {
+  top: 100%;
+  left: 100%;
+  transition: all 0.5s;
+}
+
+.login_form__btn button:hover:before {
+  top: -30px;
+  left: -30px;
+}
+
+.login_form__btn button:active:before {
+  background: #ffffff;
+}
+
+/* PAGE 2) NO customers page */
+.errorPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+}
+.errorPageContainer h1 {
+  font-weight: bold;
+  color: #333;
+  padding: 0px 10px;
+  font-size: 25px;
+}
+.errorPageContainer a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* PAGE 3) all Customers page */
+.customerTable {
+  text-align: center;
+}
+.customerTable tbody tr:hover {
+  background-color: #dcb572;
+  transition: all 0.1s;
+}
+.customerTable-head {
+  background-color: #dcb572;
+}
+.customerTable-body {
+  cursor: pointer;
+  border: 1px saddlebrown;
+  background-color: #e7d4b5;
+}
+.dropdown button {
+  border: 1px solid #e7d4b5;
+  border-radius: 7px;
+  background-color: #e7d4b5;
+}
+.dropdown button:hover {
+  background-color: #dcb572;
+  border: 1px solid black;
+}
+.dropdown-menu {
+  background-color: #dcb572;
+  border: 1px solid black;
+}
+
+#searchCustomerBtn {
+  float: right;
+  margin: 20px 40px;
+  border: none;
+  font-size: 17px;
+  color: white;
+  padding: 6px 25px;
+  background-color: #f75757;
+  border-radius: 8px;
+  box-shadow: #f75757 1px 1px 2px;
+}
+#searchCustomerBtn:hover {
+  background-color: #b13737;
+  color: white;
+  transition: all 0.3s;
+  box-shadow: #f75757 2px 2px 5px;
+}
+
+/* PAGE 4) Particular customers page */
+.allEntriesLink {
+  float: right;
+  color: white;
+  text-decoration: none;
+  background-color: #daa954;
+  margin: 16px 25px;
+  font-size: 16px;
+  padding: 6px 25px;
+  border: 1px solid none;
+  border-radius: 7px;
+}
+.allEntriesLink:hover {
+  color: white;
+  background-color: #a98240;
+  transition: all 0.3s;
+}
+.customerDetails {
+  text-align: left;
+  margin-top: 20px;
+  margin-left: 40px;
+  overflow-x: hidden;
+}
+.customerDetails h3 {
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+.customerDetails span {
+  color: #ffd38c;
+  padding: 2px 19px;
+  margin-left: 4px;
+  font-size: 24px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+}
+
+.totalBalance_section {
+  text-align: right;
+  color: #333;
+  font-weight: bold;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  margin-right: 43px;
+}
+.totalBalance_section-heading {
+  font-size: 27px;
+  font-weight: 700;
+}
+.totalBalance_section-amount {
+  padding: 7px 25px;
+  margin-left: 4px;
+  border-radius: 6px;
+  font-size: 21px;
+}
+.balanceInDebit {
+  background: #f75757;
+  color: white;
+}
+.balanceInCredit {
+  background: #20bf6b;
+  color: white;
+}
+
+.ledgerSearchForm {
+  padding: 0px 20px;
+}
+.rowClicked {
+  background-color: rgb(255, 67, 67);
+  transition: all 0.2s;
+}
+.allEntryBtn {
+  display: flex;
+  float: right;
+  margin: 20px 30px;
+}
+.allEntryBtn button {
+  margin: 0px 10px;
+}
+.allEntryAddBtn {
+  font-size: 17px;
+  padding: 6px 25px;
+  border: none;
+  border-radius: 8px;
+  background-color: #20bf6b;
+  color: white;
+}
+.allEntryAddBtn:hover {
+  background-color: #16864a;
+  color: white;
+  transition: all 0.3s;
+  box-shadow: #20bf6b 1px 1px 2px;
+}
+.allEntrySearchBtn {
+  font-size: 17px;
+  padding: 6px 25px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f75757;
+  color: white;
+  box-shadow: #f75757 1px 1px 2px;
+}
+.allEntrySearchBtn:hover {
+  background-color: #b13737;
+  color: white;
+  transition: all 0.3s;
+  box-shadow: #f75757 2px 2px 5px;
+}
+.entryTable {
+  text-align: center;
+}
+.entryTable-head {
+  background-color: #dcb572;
+}
+.entryTable-body {
+  background-color: #e7d4b5;
+  border: 1px saddlebrown;
+}
+.entryTable_tr:hover {
+  background-color: #dcb572;
+  transition: all 0.1s;
+  cursor: pointer;
+}
+.deleteCustomer-modal {
+  width: 450px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -30px;
+  z-index: 4;
+  padding: 30px 15px;
+  background-color: #e7d4b5;
+  border-radius: 7px;
+  animation: modalAnimation 0.5s ease-out forwards;
+}
+.deleteCustomerModal_deleteBtn {
+  background-color: #f75757;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  font-size: 17px;
+  margin-right: 10px;
+  padding: 8px 30px;
+  margin-top: 30px;
+  float: right;
+}
+.deleteCustomerModal_deleteBtn:hover {
+  background-color: #b13737;
+  color: white;
+  transition: all 0.3s;
+}
+.deleteCustomerModal_deleteBtn:active {
+  background: #b13737 !important;
+  outline: none;
+  color: white !important;
+  box-shadow: none !important;
+}
+.deleteCustomer-modal_closeBtn {
+  position: absolute;
+  left: 90%;
+  font-size: 28px;
+  top: 7%;
+  cursor: pointer;
+  color: red;
+}
+.deleteCustomer-modal_closeBtn:hover {
+  color: darkred;
+  transition: all 0.3s;
+}
+.showDocuments {
+  display: none;
+}
+.docImage {
+  z-index: 99;
+  padding: 20px 60px 20px 60px;
+}
+@keyframes docModal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.owl-carousel {
+  z-index: 5;
+  position: fixed;
+  transform: translateX(-50%) translateY(-50%);
+  animation: docModal 0.8s ease-out forwards;
+  top: 50%;
+  left: 50%;
+}
+.owl-nav {
+  font-size: 27px;
+  text-align: center;
+  margin: 30px 0px;
+  color: white;
+}
+.owl-nav button {
+  margin: 0px 30px;
+  padding: 10px 10px !important;
+  background-color: black !important;
+  border-radius: 7px !important;
+}
+.owl-nav button span {
+  padding: 15px !important;
+}
+.closeDocModalBtn {
+  z-index: 100;
+  cursor: pointer;
+}
+.closeButton {
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  background-color: #eb4d4b;
+  color: white;
+  padding: 6px 20px;
+  font-size: 19px;
+  border: none;
+  border-radius: 3px;
+  animation: slideToDown 0.4s ease-out forwards;
+}
+.closeButton:hover {
+  background-color: #a03635;
+  color: white;
+  transition: all 0.3s;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 650px) {
+  /* Global Elements */
+  .dropdown-menu {
+    font-size: 15px;
+  }
+  /* PAGES */
+  /* 1) ALL Customers page */
+  #searchCustomerBtn {
+    font-size: 15px;
+  }
+  .customerTable-head {
+    font-size: 16px;
+  }
+  .customerTable-body {
+    font-size: 15px;
+  }
+
+  /* 2) Partiular customers page */
+  .customerDetails h3 {
+    font-size: 21px;
+  }
+  .customerDetails span {
+    font-size: 21px;
+  }
+  .totalBalance_section-heading {
+    text-align: center;
+    font-size: 24px;
+  }
+  .totalBalance_section-amount {
+    font-size: 18px;
+  }
+  .entryTable-head {
+    font-size: 14px;
+  }
+  .entryTable-body {
+    font-size: 14px;
+  }
+  .allEntrySearchBtn {
+    font-size: 15px;
+    padding: 4px 20px;
+  }
+  .allEntryAddBtn {
+    font-size: 16px;
+    padding: 4px 20px;
+  }
+}

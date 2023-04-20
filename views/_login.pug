@@ -1,0 +1,18 @@
+extends base
+
+
+block content 
+    section.section__login
+        .loginBox.login_wrap
+            .container
+                .row
+                    .col-sm-12.col-lg-12.col-md-12
+                        form(action='' class="login_form")
+                            .login_form__group
+                                input.login_username.login_form__field(required='' placeholder='Username' type='text')
+                                label.login_form__label(for='Username') Username
+                            .login_form__group.field
+                                input.login_password.login_form__field(required='' placeholder='Password' type='password')
+                                label.login_form__label(for='Password') Password
+                            .login_form__btn
+                                button Login

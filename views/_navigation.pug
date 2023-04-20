@@ -1,0 +1,12 @@
+nav.navbar.navbar-expand-md
+  a(class="navbar-brand" href="/customers") SRM
+  button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+    span.navbar-toggler-icon
+  #navbarNav.collapse.navbar-collapse.justify-content-end
+    ul.navbar-nav.nav__links
+      li.nav-item
+        button.nav-link#addCustomerLink Add Customer
+      li.nav-item
+        a.nav-link#allCustomerLink(href='/customers') All Customers
+      li.nav-item
+        button.nav-link#logoutBtn Logout
