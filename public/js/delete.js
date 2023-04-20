@@ -10,7 +10,7 @@ export const deleteCustomer = async currentCustomerId => {
   try {
     const res = await axios({
       method: "DELETE",
-      url: `http://127.0.0.1:5000/api/v1/customers/${currentCustomerId}`
+      url: `/api/v1/customers/${currentCustomerId}`
     });
 
     if (res.data.status === "success") {
@@ -29,7 +29,7 @@ export const deleteEntry = async rowId => {
     // 1) Doing the request for deleting entry
     const res = await axios({
       method: "DELETE",
-      url: `http://127.0.0.1:5000/api/v1/ledgerEntries/${rowId}`
+      url: `/api/v1/ledgerEntries/${rowId}`
     });
 
     // 2) If entry is deleted successfully

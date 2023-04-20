@@ -15,7 +15,7 @@ export const addCustomer = async (name, area, phoneNumber, firmName) => {
 
     const res = await axios({
       method: "POST",
-      url: "http://127.0.0.1:5000/api/v1/customers",
+      url: "/api/v1/customers",
       data
     });
 
@@ -51,7 +51,7 @@ export const addEntry = async data => {
     // Sending the request
     const res = await axios({
       method: "POST",
-      url: "http://127.0.0.1:5000/api/v1/ledgerEntries",
+      url: "/api/v1/ledgerEntries",
       data: form,
       withCredentials: true
     });

@@ -11,7 +11,7 @@ export const updateEntry = async (data, entryId) => {
     // Making the request
     const res = await axios({
       method: "PATCH",
-      url: `http://127.0.0.1:5000/api/v1/ledgerEntries/${entryId}`,
+      url: `/api/v1/ledgerEntries/${entryId}`,
       data
     });
 
@@ -44,7 +44,7 @@ export const updateCustomer = async (
 
     const res = await axios({
       method: "PATCH",
-      url: `http://127.0.0.1:5000/api/v1/customers/${currentCustomerId}`,
+      url: `/api/v1/customers/${currentCustomerId}`,
       data
     });
 

@@ -9,7 +9,7 @@ export const login = async (username, password) => {
     const res = await axios(
       {
         method: "POST",
-        url: "http://127.0.0.1:5000/api/v1/admin/login",
+        url: "/api/v1/admin/login",
         data: { username, password }
       },
       { withCredentials: true }

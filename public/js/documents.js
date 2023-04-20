@@ -5,9 +5,7 @@ import { showAlert } from "./alerts";
 
 export const showDocuments = async entryId => {
   try {
-    const res = await axios(
-      `http://127.0.0.1:5000/api/v1/ledgerEntries/${entryId}`
-    );
+    const res = await axios(`/api/v1/ledgerEntries/${entryId}`);
     if (res.data.status === "success" && res.data.doc.photo.length > 0) {
       const photos = res.data.doc.photo;
       for (const photo of photos) {
@@ -66,7 +64,7 @@ export const addDocuments = async (images, entryId) => {
   const res = await axios({
     method: "POST",
     data: imageForm,
-    url: `http://127.0.0.1:5000/api/v1/ledgerEntries/${entryId}/addDocs`
+    url: `/api/v1/ledgerEntries/${entryId}/addDocs`
   });
 
   if (res.data.status === "success") {

@@ -8,6 +8,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const hpp = require("hpp");
+const compression = require("compression");
 
 const customerRouter = require("./routes/customerRoutes");
 const adminRouter = require("./routes/adminRoutes");
@@ -18,6 +19,7 @@ const app = express();
 
 app.use(cors({ credentials: true, origin: true }));
 app.use(nocache());
+app.usee(compression());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
