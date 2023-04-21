@@ -19,7 +19,7 @@ const app = express();
 
 app.use(cors({ credentials: true, origin: true }));
 app.use(nocache());
-app.usee(compression());
+app.use(compression());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
